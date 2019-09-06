@@ -42,6 +42,7 @@ class Transaction(models.Model):
     (POSTED, 'POSTED')
   ]
   amount = models.IntegerField()
+  entity = models.CharField()
   time = models.DateTimeField(default=timezone.now())
   transaction_type = models.CharField(choices=transction_type_choices, max_length=2)
   status = models.CharField(choices=status_choices, max_length=2)
