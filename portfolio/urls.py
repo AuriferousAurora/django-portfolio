@@ -16,6 +16,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from finance import views as finance_views
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('test/', finance_views.test_view, name='test_view')
 ]

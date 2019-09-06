@@ -13,7 +13,7 @@ class Account(models.Model):
     (SAVINGS, 'SAVINGS')
   ]
 
-  account_balance = 
+  account_balance = models.IntegerField()
   account_type = models.CharField(choices=account_type_choices, max_length=2)
   created = models.DateTimeField()
 
@@ -42,7 +42,7 @@ class Transaction(models.Model):
     (POSTED, 'POSTED')
   ]
   amount = models.IntegerField()
-  entity = models.CharField()
-  time = models.DateTimeField(default=timezone.now())
+  entity = models.CharField(max_length=300)
+  time = models.DateTimeField(default=timezone.now)
   transaction_type = models.CharField(choices=transction_type_choices, max_length=2)
   status = models.CharField(choices=status_choices, max_length=2)
