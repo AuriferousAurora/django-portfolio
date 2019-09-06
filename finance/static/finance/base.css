@@ -1,0 +1,32 @@
+body {
+  background: darkgrey;
+  display: grid;
+  height: 100vh;
+  grid-gap: 10px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: (1fr, 5fr);
+  margin: 1em;
+}
+
+header {
+  align-items: center;
+  background: black;
+  display: flex;
+  justify-content: center;
+  grid-column: 1 / 4;
+  grid-row: 1;
+}
+header.header__title {
+  color: white;
+  font-size: 4em;
+}
+section.account { 
+  background: black;
+  grid-column: 1;
+  grid-row: 2 / 6;
+}
+section.information {
+  background: black;
+  grid-column: 2 / 4;
+  grid-row: 2 / 6;
+}

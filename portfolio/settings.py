@@ -123,3 +123,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Necessary variable to serve static files to templates without context variable.
+
+# Also makes static files stored outside of the default directory avaialbe if configured correctly.
+
+# STATICFILES_DIRS = (
+#     os.path.join('static'),
+# )
