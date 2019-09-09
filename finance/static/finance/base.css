@@ -1,32 +1,43 @@
 body {
-  background: darkgrey;
+  background: #2d2d2d;
   display: grid;
+  font-family: 'Roboto', sans-serif;
   height: 100vh;
-  grid-gap: 10px;
+  grid-gap: 2em;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: (1fr, 5fr);
-  margin: 1em;
+  margin: 2em;
 }
+
+/* ___ Header Section ___ */
 
 header {
   align-items: center;
-  background: black;
+  background: #1e1e1e;
+  color: white;
   display: flex;
   justify-content: center;
   grid-column: 1 / 4;
   grid-row: 1;
 }
-header.header__title {
-  color: white;
-  font-size: 4em;
+header span.header__title {
+  font-size: 3em;
 }
+
+/* ___ Account Section ___ */
+
 section.account { 
-  background: black;
+  background: #1e1e1e;
+  color: white;
   grid-column: 1;
   grid-row: 2 / 6;
 }
+
+/* ___ Informtion Section ___ */
+
 section.information {
-  background: black;
+  background: #1e1e1e;
+  color: white;
   grid-column: 2 / 4;
   grid-row: 2 / 6;
 }

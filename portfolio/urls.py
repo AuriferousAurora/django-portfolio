@@ -20,5 +20,5 @@ from finance import views as finance_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', finance_views.test_view, name='test_view')
+    path('test/', finance_views.IndexView.as_view(), name='index')
 ]
