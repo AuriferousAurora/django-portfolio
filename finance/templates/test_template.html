@@ -14,7 +14,7 @@
   <section class="information">Three</section>
 
 
-
+  {% csrf_token %}
   <button id="link-button">Link Account</button>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
@@ -46,8 +46,13 @@
         // The metadata object contains info about the institution the
         // user selected and the account ID or IDs, if the
         // Select Account view is enabled.
-        $.post('/test/', {
-          public_token: public_token,
+        let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        $.ajax({
+          type: "POST",
+          url: '/test/',
+          data: {'public_token': public_token},
+          headers: {'X-CSRFToken': csrf_token} 
         });
       },
       onExit: function(err, metadata) {
