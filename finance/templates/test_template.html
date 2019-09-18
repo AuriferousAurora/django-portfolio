@@ -10,8 +10,16 @@
   <header>
     <span class="header__title">Test Page for Plaid<span>
   </header>
-  <section class="account">{{google_text}}</section>
-  <section class="information">Three</section>
+  <section class="account">
+    {% for x in test %}
+      <p>{{ x }}</p>
+    {% endfor %}
+  </section>
+  <section class="information">
+    {% for x in accounts %}
+      <p>{{ x }}</p>
+    {% endfor %}
+  </section>
 
 
   {% csrf_token %}
@@ -27,7 +35,6 @@
       // consent panel
       countryCodes: ['US'],
       env: 'sandbox',
-      // Replace with your public_key from the Dashboard
       key: '477f7b16c8ad370e5e5e5e2b8ebbca',
       product: ['transactions'],
       // Optional, use webhooks to get transaction and error updates
