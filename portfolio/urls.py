@@ -20,5 +20,7 @@ from finance import views as finance_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('test/', finance_views.IndexView.as_view(), name='index')
+    path('establish-link/', finance_views.EstablishLinkView.as_view(), name='establish_link'
+    ),
+    path('item-display/', finance_views.ItemDisplayView.as_view(), name='item_display')
 ]

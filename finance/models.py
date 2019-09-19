@@ -13,9 +13,9 @@ class Account(models.Model):
     (SAVINGS, 'SAVINGS')
   ]
 
-  account_balance = models.IntegerField()
-  account_type = models.CharField(choices=account_type_choices, max_length=2)
-  created = models.DateTimeField()
+  account_id = models.CharField(default='No Account ID', max_length=100)
+  account_balance = models.IntegerField(blank=True, null=True)
+  account_type = models.CharField(choices=account_type_choices, max_length=10)
 
   def get_balance():
     #Todo: Determine how to loop through all transactions and add amounts.

@@ -10,17 +10,13 @@
   <header>
     <span class="header__title">Test Page for Plaid<span>
   </header>
-  <section class="account">
-    {% for x in test %}
-      <p>{{ x }}</p>
-    {% endfor %}
-  </section>
+  <section class="account"></section>
   <section class="information">
-    {% for key in accounts %}
-      <p>{{ key}}</p>
+    {% for key, value in accounts.items %}
+        <p>{{key}}</p>
+        <p>{{value}}</p>
     {% endfor %}
   </section>
-
 
   {% csrf_token %}
   <button id="link-button">Link Account</button>
@@ -57,7 +53,7 @@
 
         $.ajax({
           type: "POST",
-          url: '/test/',
+          url: '/establish-link/',
           data: {'public_token': public_token},
           headers: {'X-CSRFToken': csrf_token} 
         });

@@ -1,14 +1,17 @@
 import json
 import os
 
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import View
+
+from finance.models import Account
 
 from plaid import Client
 from plaid.errors import APIError, ItemError
 
-class IndexView(View):
-  template = 'test_template.html'
+class EstablishLinkView(View):
+  template = 'establish-link-template.html'
   context = {}
 
   PLAID_SANBOX_URL = 'https://sandbox.plaid.com'
@@ -26,7 +29,7 @@ class IndexView(View):
   access_token = None
 
   def get(self, request):
-    self.context.update({'test': {'1': '1', '2': '2'}})
+    # self.context.update({'test': {'1': '1', '2': '2'}})
     return render(request, self.template, context=self.context)
 
   def post(self, request):
@@ -36,21 +39,28 @@ class IndexView(View):
 
     access_token = response['access_token']
     item_id = response['item_id']
-    request_id = response['request_id']
-
+    public_token_request_id = response['request_id']
 
     auth_response = self.client.Auth.get(access_token)
 
     accounts = auth_response['accounts']
+    numbers = auth_response['numbers']
+    access_token_request_id = auth_response['request_id']
 
-    # for account in accounts:
-    #   a = {account['account_id']: {'balance_available': account['balances']['available'],
-    #                                'balance_current': account['balances']['current']}}
-    #   account_dict.update(a)
-    self.context.update({'accounts': {}})
-    for account in accounts:   
-      self.context['accounts'].update({account['account_id']: account['balances']['available']})
-      print(self.context)
+    for account in accounts:
+      account_model_type = account['type'].upper()
+      account_model = Account(account_id=account['account_id'],
+                              account_balance=account['balances']['available'],
+                              account_type=Account.CHECKING)
+      account_model.save()
 
-    print(self.context)
+    # return HttpResponseRedirect(ItemDisplayView)
+    return render(request, self.template)
+
+
+class ItemDisplayView(View):
+  template = 'item-display-template.html'
+  context = {}
+
+  def get(self, request):
     return render(request, self.template, context=self.context)
