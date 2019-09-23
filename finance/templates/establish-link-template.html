@@ -4,6 +4,7 @@
   <title>Test Page for Plaid</title>
   {% load static %}
   <link type="text/css" rel="stylesheet" href="{% static '/finance/base.css' %}"/>
+  <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}"/>
   <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> 
 </head>
 <body>
@@ -20,6 +21,7 @@
 
   {% csrf_token %}
   <button id="link-button">Link Account</button>
+  <button id="go-to-item-display">Go To Item Display</button>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
   <script type="text/javascript">
@@ -49,14 +51,13 @@
         // The metadata object contains info about the institution the
         // user selected and the account ID or IDs, if the
         // Select Account view is enabled.
-        let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
+  
+        // In this section, I'm going to try saving the public_token as a sessionStorage object such that
+        // hopefully whatever issue is present in my master version of this will be dealt with.
 
-        $.ajax({
-          type: "POST",
-          url: '/establish-link/',
-          data: {'public_token': public_token},
-          headers: {'X-CSRFToken': csrf_token} 
-        });
+        let session = window.sessionStorage;
+        
+        session.setItem("public_token", public_token);
       },
       onExit: function(err, metadata) {
         // The user exited the Link flow.
@@ -92,6 +93,19 @@
     $('#link-button').on('click', function(e) {
       handler.open();
     });
+
+    $('#go-to-item-display').on('click', function(e) {
+      let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
+      let public_token = window.sessionStorage.getItem('public_token');
+
+      $.ajax({
+          type: "POST",
+          url: '/item-display/',
+          data: {'public_token': public_token},
+          headers: {'X-CSRFToken': csrf_token} 
+        });
+    });
+
   })(jQuery);
   </script>
 
