@@ -66,6 +66,14 @@
         // metadata contains information about the institution
         // that the user selected and the most recent API request IDs.
         // Storing this information can be helpful for support.
+        $('#link-button').hide();
+        let redirectButton = $('<button/>',
+        {
+          text: 'Redirect',
+          click: function() { jquery.get('/item-display/'); }
+        })
+        let informationSection = $('.information').append(redirectButton).end();
+        
       },
       onEvent: function(eventName, metadata) {
         // Optionally capture Link flow events, streamed through

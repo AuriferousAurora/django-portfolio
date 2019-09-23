@@ -2,7 +2,7 @@ import json
 import os
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 
 from finance.models import Account
@@ -53,14 +53,14 @@ class EstablishLinkView(View):
                               account_balance=account['balances']['available'],
                               account_type=Account.CHECKING)
       account_model.save()
-
-    # return HttpResponseRedirect(ItemDisplayView)
-    return render(request, self.template)
+      
+    response = redirect('item_display')
+    return response
 
 
 class ItemDisplayView(View):
   template = 'item-display-template.html'
-  context = {}
+  context = {'hello': 'You done did it, kid.'}
 
   def get(self, request):
     return render(request, self.template, context=self.context)
