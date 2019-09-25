@@ -1,12 +1,31 @@
 body {
+  color: white;
   background: #2d2d2d;
-  display: grid;
+  display: flex;
   font-family: 'Roboto', sans-serif;
   height: 100vh;
-  grid-gap: 2em;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: (1fr, 5fr);
-  margin: 2em;
+  width: 100vw;
+}
+.main {
+  margin: 1.5em;
+  width: 100%;
+}
+.content {
+  display: flex;
+  height: 80vh;
+  justify-content: space-between;
+  margin-top: 1em;
+  width: 100%;
+}
+.plaid-link-button {
+  background: gray;
+  border: none;
+  border-radius: 0.2em;
+  color: white;
+  margin: 1em;
+  text-decoration: none;
+  padding: 1em;
+  width: 50%;
 }
 
 /* ___ Header Section ___ */
@@ -14,11 +33,9 @@ body {
 header {
   align-items: center;
   background: #1e1e1e;
-  color: white;
   display: flex;
   justify-content: center;
-  grid-column: 1 / 4;
-  grid-row: 1;
+  padding: 1em;
 }
 header span.header__title {
   font-size: 3em;
@@ -27,10 +44,13 @@ header span.header__title {
 /* ___ Account Section ___ */
 
 section.account { 
+  align-items: center;
   background: #1e1e1e;
   color: white;
-  grid-column: 1;
-  grid-row: 2 / 6;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 33%;
 }
 
 /* ___ Informtion Section ___ */
@@ -38,6 +58,6 @@ section.account {
 section.information {
   background: #1e1e1e;
   color: white;
-  grid-column: 2 / 4;
-  grid-row: 2 / 6;
+  height: 100%;
+  width: 63%;
 }
