@@ -11,13 +11,13 @@
     <span class="header__title">Test Page for Plaid<span>
   </header>
   <section class="account">
-    {% for key, value in accounts.items %}
-      <p>{{key}}</p>
-      <p>{{value}}</p>
-    {% endfor %}
   </section>
   <section class="information">
-        <p>{{hello}}</p>
+    {% for key, value in accounts.items %}
+        <span>{{value.account_id}}</span>
+        <span>{{value.accunt_balance}}</span>
+        <span>{{value.account_type}}</span>
+    {% endfor %}
   </section>
 </body>
 </html>

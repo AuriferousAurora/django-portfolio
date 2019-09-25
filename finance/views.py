@@ -18,7 +18,7 @@ class EstablishLinkView(View):
 
 class ItemDisplayView(View):
   template = 'item-display-template.html'
-  context = {}
+  context = {'accounts': {}}
 
   PLAID_SANBOX_URL = 'https://sandbox.plaid.com'
 
@@ -34,8 +34,12 @@ class ItemDisplayView(View):
 
 
   def get(self, request):
-    access_token = request.session['access_token']
-    self.context.update({'hello': access_token})
+    accounts = Account.objects.all()
+
+    for account in accounts:
+      self.context['accounts'].update({'account_' + account.account_id: {'account_id': account.account_id,
+                                                              'account_balance': account.account_balance,
+                                                              'account_type': account.account_type}})
     return render(request, self.template, context=self.context)
 
   def post(self, request):
@@ -58,10 +62,14 @@ class ItemDisplayView(View):
 
     for account in accounts:
       account_model_type = account['type'].upper()
-      account_model = Account(account_id=account['account_id'],
-                              account_balance=account['balances']['available'],
-                              account_type=Account.CHECKING)
-      account_model.save()
+      try:
+        account_model = Account.objects.get(account_id=account['account_id'])
+      except Account.DoesNotExist:
+        account_model, create = Account.objects.update_or_create(
+                                  account_id=account['account_id'],
+                                  account_balance=account['balances']['available'],
+                                  account_type=Account.CHECKING)
+        account_model.save()
 
     response = {'success': '1'}
 
