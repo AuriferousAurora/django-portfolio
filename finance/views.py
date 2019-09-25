@@ -11,11 +11,6 @@ from plaid import Client
 from plaid.errors import APIError, ItemError
 
 
-class LoginView(View):
-  redirect_field_name = 'establish-link/'
-  redirect_authenticated_user = True
-
-
 class EstablishLinkView(View):
   template = 'establish-link-template.html'
 
