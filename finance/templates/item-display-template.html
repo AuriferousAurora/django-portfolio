@@ -10,7 +10,12 @@
   <header>
     <span class="header__title">Test Page for Plaid<span>
   </header>
-  <section class="account"></section>
+  <section class="account">
+    {% for key, value in accounts.items %}
+      <p>{{key}}</p>
+      <p>{{value}}</p>
+    {% endfor %}
+  </section>
   <section class="information">
         <p>{{hello}}</p>
   </section>

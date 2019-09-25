@@ -13,15 +13,11 @@
   </header>
   <section class="account"></section>
   <section class="information">
-    {% for key, value in accounts.items %}
-        <p>{{key}}</p>
-        <p>{{value}}</p>
-    {% endfor %}
   </section>
 
   {% csrf_token %}
   <button id="link-button">Link Account</button>
-  <button id="go-to-item-display">Go To Item Display</button>
+  <a href='{% url 'item_display' %}'>Go To Item Display</a>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
   <script type="text/javascript">
@@ -55,9 +51,18 @@
         // In this section, I'm going to try saving the public_token as a sessionStorage object such that
         // hopefully whatever issue is present in my master version of this will be dealt with.
 
-        let session = window.sessionStorage;
+        // let session = window.sessionStorage;
         
-        session.setItem("public_token", public_token);
+        // session.setItem("public_token", public_token);
+
+        let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
+
+        $.ajax({
+          type: 'POST',
+          url: '/item-display/',
+          data: {'public_token': public_token},
+          headers: {'X-CSRFToken': csrf_token},
+        });
       },
       onExit: function(err, metadata) {
         // The user exited the Link flow.
@@ -67,13 +72,6 @@
         // metadata contains information about the institution
         // that the user selected and the most recent API request IDs.
         // Storing this information can be helpful for support.
-        $('#link-button').hide();
-        let redirectButton = $('<button/>',
-        {
-          text: 'Redirect',
-          click: function() { jquery.get('/item-display/'); }
-        })
-        let informationSection = $('.information').append(redirectButton).end();
         
       },
       onEvent: function(eventName, metadata) {
@@ -94,21 +92,8 @@
       handler.open();
     });
 
-    $('#go-to-item-display').on('click', function(e) {
-      let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
-      let public_token = window.sessionStorage.getItem('public_token');
-
-      $.ajax({
-          type: "POST",
-          url: '/item-display/',
-          data: {'public_token': public_token},
-          headers: {'X-CSRFToken': csrf_token} 
-        });
-    });
-
   })(jQuery);
   </script>
-
 
 </body>
 </html>
