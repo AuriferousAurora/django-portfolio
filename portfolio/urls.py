@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import include, path
 
 from finance import views as finance_views
 
@@ -22,5 +22,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('establish-link/', finance_views.EstablishLinkView.as_view(), name='establish_link'
     ),
-    path('item-display/', finance_views.ItemDisplayView.as_view(), name='item_display')
+    path('item-display/', finance_views.ItemDisplayView.as_view(), name='item_display'),
+    path('accounts/', include('django.contrib.auth.urls'))
 ]

@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
@@ -8,6 +9,12 @@ from finance.models import Account
 
 from plaid import Client
 from plaid.errors import APIError, ItemError
+
+
+class LoginView(View):
+  redirect_field_name = 'establish-link/'
+  redirect_authenticated_user = True
+
 
 class EstablishLinkView(View):
   template = 'establish-link-template.html'
@@ -54,6 +61,8 @@ class ItemDisplayView(View):
     item_id = item_response['item_id']
     public_token_request_id = item_response['request_id']
 
+    # Read up on whether or not this is how to do it. I'm getting the account data, but
+    # the Auth and Item services seem to be separate, so that's something I should look into.
     auth_response = self.client.Auth.get(request.session['access_token'])
 
     accounts = auth_response['accounts']
