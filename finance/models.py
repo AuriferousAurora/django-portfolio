@@ -1,10 +1,6 @@
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils import timezone
-
-
-class User(AbstractUser):
-  current_account_token = models.CharField(max_length=500, default=None, blank=True, null=True)
 
 class Account(models.Model):
 
@@ -51,3 +47,7 @@ class Transaction(models.Model):
   time = models.DateTimeField(default=timezone.now)
   transaction_type = models.CharField(choices=transction_type_choices, max_length=2)
   status = models.CharField(choices=status_choices, max_length=2)
+
+class UserAccountToken(models.Model):
+  user = models.OneToOneField(User, on_delete=models.CASCADE)
+  account_token = models.CharField(max_length=100)

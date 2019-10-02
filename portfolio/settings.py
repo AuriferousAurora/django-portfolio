@@ -133,5 +133,3 @@ STATIC_URL = '/static/'
 # )
 
 LOGIN_REDIRECT_URL = '/establish-link/'
-
-AUTH_USER_MODEL = 'finance.User'
