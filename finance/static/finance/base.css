@@ -61,3 +61,23 @@ section.information {
   height: 100%;
   width: 63%;
 }
+
+/* ___ Link Status ___ */
+
+#account__link-status {
+  border: none;
+  border-radius: 0.2em;
+  color: white;
+  margin: 1em;
+  text-decoration: none;
+  padding: 1em;
+  width: 50%;
+}
+
+.account__link-status-inactive {
+  background: red;
+}
+
+.account__link-status-active {
+  background: green;
+}

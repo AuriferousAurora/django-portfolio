@@ -15,7 +15,10 @@
   </header>
 
   <div class='content'>
-    <section class="account">
+    <section class='account'>
+      <div class='account__link-status-container'>
+        <div id='account__link-status' class='account__link-status-inactive'>Link Not Established</div>
+      </div>
       <button id='link-button' class='plaid-link-button'>Link Account</button>
       <a id='item-display-link' class='plaid-link-button' href='{% url 'item_display' %}'>Go To Item Display</a>
     </section>
@@ -25,7 +28,6 @@
   {% csrf_token %}
   
   </div>
-
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
   <script src="https://cdn.plaid.com/link/v2/stable/link-initialize.js"></script>
   <script type="text/javascript">
@@ -44,8 +46,13 @@
       userLegalName: 'John Appleseed',
       userEmailAddress: 'jappleseed@yourapp.com',
       onSuccess: function(public_token, metadata) {
-        let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
+        let linkStatusElement = document.getElementById('account__link-status');
+        linkStatusElement.className = 'account__link-status-active';
+        linkStatusElement.innerText = 'Link Established';
+        
 
+        let csrf_token = jQuery("[name=csrfmiddlewaretoken]").val();
+        
         $.ajax({
           type: 'POST',
           url: '/item-display/',
@@ -61,5 +68,7 @@
 
   })(jQuery);
   </script>
+  
+  <script src="{% static '/finance/base.js' %}"></script>
 </body>
 </html>
