@@ -5,7 +5,7 @@ Django==2.2.5
 entrypoints==0.3
 flake8==3.7.8
 idna==2.8
-Jinja2==2.10.1
+Jinja2==2.11.3
 MarkupSafe==1.1.1
 mccabe==0.6.1
 plaid-python==3.4.0
